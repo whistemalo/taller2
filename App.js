@@ -1,15 +1,60 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { 
+  View, 
+  Text, 
+  Button,
+  StyleSheet, 
+  useWindowDimensions,
+  ImageBackground,
+  ScrollView, 
+  StatusBar
+} from 'react-native'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+import Locations from './src/Locations';
+
+
+const App = () =>{
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+    return (
+    <>
+      <StatusBar barStyle= "light-content" />
+      <ScrollView
+        horizontal={true}
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+      >
+
+        
+        {Locations.map((location, index) => {
+          if(location.weatherType == 'Night' ){
+            bgImg = require('./assets/moon2.jpg');
+          } else if(location.weatherType == 'Sunny'){
+            bgImg = require('./assets/moon1.jpg');
+          } else if(location.weatherType == 'Cloudy'){
+            bgImg = require('./assets/moon1.jpg');
+          } 
+        })}
+
+        <View style={{width: windowWidth, height:windowHeight}}>
+          <ImageBackground
+          source={require('./assets/moon1.jpg')}
+          style={{flex: 1}}
+          />
+        </View>
+        
+        <View style={{width: windowWidth, height:windowHeight}}>
+          <ImageBackground
+          source={require('./assets/moon2.jpg')}
+          style={{flex: 1}}
+          />
+        </View>
+
+      </ScrollView>
+    </>
   );
-}
+};
+
+export default  App;
 
 const styles = StyleSheet.create({
   container: {
